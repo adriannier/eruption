@@ -8,7 +8,7 @@ As your FileMaker Pro solution grows you might find yourself losing overview. I 
 
 1. Download or clone this repository
 
-2. In your favorite terminal application, change to the project directory
+2. In your favorite terminal application, change to the project directory. If you downloaded the .zip file with Safari it should be ```cd ~/Downloads/eruption-master```
 
 3. Make the erupt file executable with ```chmod +x erupt```
 
