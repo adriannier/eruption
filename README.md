@@ -44,3 +44,9 @@ Path to the directory where to store the eruption
 Example:
 
 ```~/Downloads/Eruption/erupt ~/Desktop/filemaker.xml ~/Desktop```
+
+## Tips
+
+- [Kaleidoscope](https://www.kaleidoscopeapp.com) is very useful to compare whole directory structures (no affiliation to the makers of this application, Black Pixel)
+
+- Xcode's FileMerge has a nice GUI to compare two single files
