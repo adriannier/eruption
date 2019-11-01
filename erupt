@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-include('load.php');
+include(__DIR__.DIRECTORY_SEPARATOR.'functions'.DIRECTORY_SEPARATOR.'load.php');
 
 // Check parameters
 if (!isset($argv[1])) {
