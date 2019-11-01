@@ -8,9 +8,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Load functions
-$funcDir = __DIR__.DIRECTORY_SEPARATOR.'functions'.DIRECTORY_SEPARATOR;
+$funcDir = __DIR__.DIRECTORY_SEPARATOR;
 $funcDirItems = scandir($funcDir); 
-$ignoredDirItems = ['.', '..'];
+$ignoredDirItems = ['.', '..', 'load.php'];
 
 foreach ($funcDirItems as $item) { 
 
@@ -21,11 +21,9 @@ foreach ($funcDirItems as $item) {
 	}
 } 
 
-// Load classes
+// Load root and parent classes
 $preferedClasses = ['DTElement.php', 'DTLayoutObject.php', 'DTLayoutGroup.php'];
-$classesDir = __DIR__.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR;
-$classesDirItems = scandir($classesDir); 
-$ignoredDirItems = array_merge(['.', '..', ], $preferedClasses);
+$classesDir = dirname(__DIR__).DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR;
 
 foreach ($preferedClasses as $preferedClass) {
 	
@@ -34,6 +32,10 @@ foreach ($preferedClasses as $preferedClass) {
 	}
 	
 }
+
+// Load other classes
+$classesDirItems = scandir($classesDir); 
+$ignoredDirItems = array_merge(['.', '..', ], $preferedClasses);
 
 foreach ($classesDirItems as $item) { 
 
