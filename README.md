@@ -9,7 +9,9 @@ As of this writing Eruption can process two types of XML files:
 
 - The newer format that is created by using the **Save a Copy as XML…** command from the **Tools** menu found in FileMaker Pro 18
 
-- The clipboard format for which you need other tools to save as an XML file
+- The clipboard format for which you need other tools to save as an XML file first
+
+The previous Database Design Report format is not supported.
 
 ## Installation
 
