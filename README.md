@@ -47,6 +47,8 @@ Example:
 
 ## Tips
 
-- [Kaleidoscope](https://www.kaleidoscopeapp.com) is very useful to compare whole directory structures (no affiliation to the makers of this application, Black Pixel)
+- Drag the eruption directory onto [TextMate](https://macromates.com), press cmd-F, and enjoy project-wide search
+
+- [Kaleidoscope](https://www.kaleidoscopeapp.com) is an useful tool to compare whole directory structures
 
 - Xcode's FileMerge has a nice GUI to compare two single files
