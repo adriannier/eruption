@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+include('load.php');
+
+// Check parameters
+if (!isset($argv[1])) {
+	
+	doLog('No source file specified'."\n");
+	exit();	   
+	
+} else if (!is_file($argv[1])) {
+	
+	doLog('Source file not found'."\n");
+	exit();	 
+}
+	
+if (!isset($argv[2])) {
+
+	doLog('No destination directory specified'."\n");
+	exit(); 
+	   
+} else if (!is_dir(dirname($argv[2]))) {
+	
+	doLog('Parent directory '.dirname($argv[2]).' not found'."\n");
+	exit();	 
+}
+
+// Process file
+$processor = new FMXMLProcessor($argv[1], $argv[2]);
+$processor->process();
+
+exit();
