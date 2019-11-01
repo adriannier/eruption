@@ -47,7 +47,7 @@ Example:
 
 ## Tips
 
-- Drag the eruption directory onto [TextMate](https://macromates.com), press cmd-F, and enjoy project-wide search
+- Drag the eruption directory onto [TextMate](https://macromates.com), press cmd-shift-F, and enjoy project-wide search
 
 - [Kaleidoscope](https://www.kaleidoscopeapp.com) is an useful tool to compare whole directory structures
 
