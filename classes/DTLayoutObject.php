@@ -189,6 +189,9 @@ class DTLayoutObject extends DTElement {
 				
 			case 'GLPH':
 				return;
+			
+			case 'DPI_':
+				return;
 				
 			default:
 				$this->warn('Unknown stream name: '.$streamName, 1);
