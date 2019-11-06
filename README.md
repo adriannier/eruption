@@ -47,8 +47,10 @@ Example:
 
 ## Tips
 
-- Drag the eruption directory onto [TextMate](https://macromates.com), press cmd-shift-F, and enjoy project-wide search
+- Drag the eruption directory onto [TextMate](https://macromates.com), press cmd-shift-F, and enjoy instant project-wide search
 
-- [Kaleidoscope](https://www.kaleidoscopeapp.com) is an useful tool to compare whole directory structures
+- [Kaleidoscope](https://www.kaleidoscopeapp.com) is an useful tool to compare whole directory structures (or in terms of this project: eruptions of different development stages)
 
-- Xcode's FileMerge has a nice GUI to compare two single files
+- Xcode's [FileMerge](https://stackoverflow.com/questions/47563666/how-do-i-open-filemerge-app-on-mac-os-10-13-and-xcode-9) has a nice GUI to compare two single files
+
+- The command line tool to compare two single files is called [diff](x-man-page://diff)
