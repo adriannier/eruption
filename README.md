@@ -43,7 +43,7 @@ Path to the directory where to store the eruption
 
 Example:
 
-```~/Downloads/Eruption/erupt ~/Desktop/filemaker.xml ~/Desktop```
+```~/Downloads/eruption-master/erupt ~/Desktop/filemaker.xml ~/Desktop```
 
 ## Tips
 
