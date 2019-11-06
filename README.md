@@ -1,5 +1,5 @@
 # Eruption
-PHP script for turning FileMaker Pro XML into a directory and file structure.
+Turn XML files describing FileMaker Pro solutions into directory and file structures
 
 ## Motivation
 As your FileMaker Pro solution grows you might find yourself losing overview. I did and I always wished I could use some of the tools most of the other development environments provide. So to have project-wide search, version control, and file comparison, I developed this script that turns an XML of your FileMaker Pro solution into a directory and file structure.
