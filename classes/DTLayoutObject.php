@@ -165,34 +165,43 @@ class DTLayoutObject extends DTElement {
 	function fileExtensionForStreamName($streamName) {
 		
 		switch ($streamName) {
-										
-			case 'SVG ':
-				return '.svg';
 
-			case 'PNGf':
-				return '.png';
-				
-			case 'PDF ':
-				return '.pdf';
-				
+			case '8BPS':
+				return '.psd';
+							
+			case 'DPI_':
+				return;
+														
+			case 'FNAM':
+				return;
+			
+			case 'FORK':
+				return;
+
+			case 'GIFf':
+				return '.gif';
+									
+			case 'GLPH':
+				return;
+						
 			case 'JPEG':
 				return '.jpg';
-			
-			case 'SIZE':
-				return;
 
 			case 'MAIN':
 				return;
 
-			case 'FNAM':
+			case 'PDF ':
+				return '.pdf';
+
+			case 'PNGf':
+				return '.png';
+				
+			case 'SIZE':
 				return;
 				
-			case 'GLPH':
-				return;
-			
-			case 'DPI_':
-				return;
-				
+			case 'SVG ':
+				return '.svg';
+	
 			default:
 				$this->warn('Unknown stream name: '.$streamName, 1);
 				return;
