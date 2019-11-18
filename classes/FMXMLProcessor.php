@@ -32,8 +32,8 @@ class FMXMLProcessor {
 		$mime = finfo_file($finfo, $this->sourceFile);
 		finfo_close($finfo);
 		
-		if ($mime != 'application/xml') {
-			throwError('Cannot handle source files of type '.$mime);
+		if (!in_array($mime, ['application/xml', 'text/html'])) {
+			throwError('Cannot read file at '.$filePath.' because source files of type '.$mime.' are not supported.');
 		}
 	
     	$fp = fopen($this->sourceFile, 'r');
@@ -77,7 +77,7 @@ class FMXMLProcessor {
 			rmdirRecursive($this->destinationDirectory);
 		}
 		
-		mkdir($this->destinationDirectory);
+		mkdir($this->destinationDirectory, 0777, true);
 		
 		if (!is_dir($this->destinationDirectory)) {
 			doLog('Could not create destination directory at: '.$this->destinationDirectory);	
