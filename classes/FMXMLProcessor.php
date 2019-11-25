@@ -32,7 +32,7 @@ class FMXMLProcessor {
 		$mime = finfo_file($finfo, $this->sourceFile);
 		finfo_close($finfo);
 		
-		if (!in_array($mime, ['application/xml', 'text/html'])) {
+		if (!in_array($mime, ['application/xml', 'text/html', 'text/plain'])) {
 			throwError('Cannot read file at '.$filePath.' because source files of type '.$mime.' are not supported.');
 		}
 	
