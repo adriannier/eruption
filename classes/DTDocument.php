@@ -23,6 +23,8 @@ class DTDocument extends DOMDocument {
 	public $debugLayoutId;
 	public $fmFileName;
 	
+	public $rootTagName;
+	
 	function fmFileName() {
 		
 		if (!isset($this->fmFileName)) {
@@ -79,6 +81,7 @@ class DTDocument extends DOMDocument {
 		
 		debugLog('Processing template');
 		
+		$this->rootTagName = $this->documentElement->tagName;
 		$this->xPath = new DOMXPath($this);
 		
 		$this->initializeDestinationDirectory();
@@ -86,28 +89,28 @@ class DTDocument extends DOMDocument {
 		$this->processFoundNodes(
 			'accounts',
 			'Security/Accounts',
-			'/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/AccountsCatalog[1]/ObjectList[1]/Account',
+			'/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/AccountsCatalog[1]/ObjectList[1]/Account',
 			'DTAccount'
 		);
 
 		$this->processFoundNodes(
 			'privilege sets',
 			'Security/Privilege Sets',
-			'/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/PrivilegeSetsCatalog[1]/ObjectList[1]/PrivilegeSet',
+			'/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/PrivilegeSetsCatalog[1]/ObjectList[1]/PrivilegeSet',
 			'DTPrivilegeSet'
 		);
 
 		$this->processFoundNodes(
 			'extended privileges',
 			'Security/Extended Privileges',
-			'/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/ExtendedPrivilegesCatalog[1]/ObjectList[1]/ExtendedPrivilege',
+			'/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/ExtendedPrivilegesCatalog[1]/ObjectList[1]/ExtendedPrivilege',
 			'DTExtendedPrivilege'
 		);
 		
 		$this->processFoundNodes(
 			'table occurrences',
 			'Tables',
-			'/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/TableOccurrenceCatalog[1]/TableOccurrence',
+			'/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/TableOccurrenceCatalog[1]/TableOccurrence',
 			'DTTableOccurrence'
 		);
 		
@@ -124,28 +127,28 @@ class DTDocument extends DOMDocument {
 		$this->processFoundNodes(
 			'script triggers',
 			'Script Triggers',
-			'/FMDynamicTemplate[1]/Metadata[1]/AddAction[1]/ScriptTriggers[1]/ScriptTrigger',
+			'/'.$this->rootTagName.'[1]/Metadata[1]/AddAction[1]/ScriptTriggers[1]/ScriptTrigger',
 			'DTScriptTrigger'
 		);
 		
 		$this->processFoundNodes(
 			'relationships',
 			'Tables',
-			'/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/RelationshipCatalog[1]/Relationship',
+			'/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/RelationshipCatalog[1]/Relationship',
 			'DTTableRelationship'
 		);
 		
 		$this->processFoundNodes(
 			'themes',
 			'Themes',
-			'/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/ThemeCatalog[1]/Theme',
+			'/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/ThemeCatalog[1]/Theme',
 			'DTTheme'	
 		);
 		
 		$this->processFoundNodes(
 			'base directories',
 			'Base Directories',
-			'/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/BaseDirectoryCatalog[1]/BaseDirectory'
+			'/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/BaseDirectoryCatalog[1]/BaseDirectory'
 		);
 
 		if (defined('DEBUG') && DEBUG === true) {
@@ -195,7 +198,7 @@ class DTDocument extends DOMDocument {
 		debugLog('Processing tables');
 
 		// Find field catalogs
-		$fieldCatalogs = $this->q('/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/FieldsForTables[1]/FieldCatalog');
+		$fieldCatalogs = $this->q('/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/FieldsForTables[1]/FieldCatalog');
 
 		$tableCount = 0;
 		$fieldCount = 0;
@@ -253,7 +256,7 @@ class DTDocument extends DOMDocument {
 		debugLog('Processing custom functions');
 		
 		// Find custom function nodes
-		$functions = $this->q('/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/CustomFunctionsCatalog[1]/ObjectList[1]/CustomFunction', 'DTCustomFunction');
+		$functions = $this->q('/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/CustomFunctionsCatalog[1]/ObjectList[1]/CustomFunction', 'DTCustomFunction');
 		
 		$this->functionObjects = [];
 
@@ -272,7 +275,7 @@ class DTDocument extends DOMDocument {
 		}
 		
 		// Find calculations for custom functions
-		$functions = $this->q('/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/CalcsForCustomFunctions[1]/ObjectList[1]/CustomFunctionCalc');
+		$functions = $this->q('/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/CalcsForCustomFunctions[1]/ObjectList[1]/CustomFunctionCalc');
 		
 		foreach ($functions as $function) {
 			
@@ -297,7 +300,7 @@ class DTDocument extends DOMDocument {
 		debugLog('Processing scripts');
 		
 		// Find script nodes
-		$scripts = $this->q('/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/ScriptCatalog[1]/Script', 'DTScript');
+		$scripts = $this->q('/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/ScriptCatalog[1]/Script', 'DTScript');
 
 		$this->scriptObjects = [];
 		$pathComponents = [];
@@ -346,7 +349,7 @@ class DTDocument extends DOMDocument {
 		$scriptCount = count($this->scriptObjects);
 		
 		// Find script step nodes
-		$scripts = $this->q('/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/StepsForScripts[1]/Script');
+		$scripts = $this->q('/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/StepsForScripts[1]/Script');
 		$scriptIndex = 0;
 		
 		foreach ($scripts as $script) {		
@@ -388,7 +391,7 @@ class DTDocument extends DOMDocument {
 		debugLog('Processing layouts');
 		
 		// Find layout nodes
-		$layouts = $this->q('/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/LayoutCatalog[1]/Layout', 'DTLayout');
+		$layouts = $this->q('/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/LayoutCatalog[1]/Layout', 'DTLayout');
 
 		$this->layoutObjects = [];
 		$pathComponents = [];
@@ -444,7 +447,7 @@ class DTDocument extends DOMDocument {
 		debugLog('Processing value lists');
 		
 		// Find value list nodes
-		$valueLists = $this->q('/FMDynamicTemplate[1]/Structure[1]/AddAction[1]/ValueListCatalog[1]/ValueList', 'DTValueList');
+		$valueLists = $this->q('/'.$this->rootTagName.'[1]/Structure[1]/AddAction[1]/ValueListCatalog[1]/ValueList', 'DTValueList');
 		
 		$this->valueListObjects = [];
 
