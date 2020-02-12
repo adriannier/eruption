@@ -48,7 +48,7 @@ class DTScript extends DTHierarchical {
 		}
 		
 		$description = implode("\n", $descriptions);
-		$description .= "\n\n".'# Script: '.$this->name().' (id: '.$this->id().')';
+		$description .= "\n\n".'# Script id: '.$this->id();
 		return $description;
 		
 		
