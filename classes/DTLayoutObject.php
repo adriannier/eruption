@@ -179,7 +179,7 @@ class DTLayoutObject extends DTElement {
 				return;
 
 			case 'FRM#':
-			return;
+				return;
 
 			case 'GIFf':
 				return '.gif';
@@ -203,7 +203,7 @@ class DTLayoutObject extends DTElement {
 				return;
 
 			case 'TIFF':
-			return '.tif';
+				return '.tif';
 				
 			case 'SVG ':
 				return '.svg';
