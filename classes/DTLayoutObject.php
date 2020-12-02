@@ -178,6 +178,9 @@ class DTLayoutObject extends DTElement {
 			case 'FORK':
 				return;
 
+			case 'FRM#':
+			return;
+
 			case 'GIFf':
 				return '.gif';
 									
@@ -198,6 +201,9 @@ class DTLayoutObject extends DTElement {
 				
 			case 'SIZE':
 				return;
+
+			case 'TIFF':
+			return '.tif';
 				
 			case 'SVG ':
 				return '.svg';
