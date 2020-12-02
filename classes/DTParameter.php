@@ -732,7 +732,26 @@ class DTParameter extends DTElement {
 					
 				} else {
 					
-					$this->warn("Unknown selection kind '$selectKind'");
+					// New in FM19
+					$selectType = $select->attr('type');
+					
+					if ($selectType == 'Calculated') {
+						
+						if ($text = $select->firstChild('Name/Calculation/Calculation/Text')) {
+							
+							return $text->text();
+							
+						}
+						
+					} else if ($selectType == 'current') {
+						
+						return 'Current Window';
+						
+					} else {
+						
+						$this->warn("Unknown selection kind '$selectKind' and type '$selectType'");
+						
+					}
 					
 				}
 				
