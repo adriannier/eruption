@@ -66,8 +66,12 @@ class DTElement extends DOMElement {
 	
 	function id() {
 		
-		if (!isset($this->id)) {
+		if (!isset($this->id) && $this->hasAttribute('id')) {
 			$this->id = $this->getAttribute('id');			
+		}
+		
+		if (!isset($this->id) && $this->hasAttribute('UUID')) {
+			$this->id = $this->getAttribute('UUID');			
 		}
 		
 		return $this->id;
