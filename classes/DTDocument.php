@@ -206,43 +206,51 @@ class DTDocument extends DOMDocument {
 		foreach ($fieldCatalogs as $fieldCatalog) {
 			
 			if (!is_null($tableOccurrenceRef = $fieldCatalog->firstChild('TableOccurrenceReference'))) {
+				// Before FM19
+				$tableId = $tableOccurrenceRef->id();
 				
-				if (!is_null($fieldList = $fieldCatalog->firstChild('ObjectList'))) {
+			} else if (!is_null($tableOccurrenceRef = $fieldCatalog->firstChild('BaseTableReference'))) {
+				// FM19 and up
+				$tableId = $tableOccurrenceRef->id();
+				
+			} else {
+				
+				throwError('Could not determine table id');
+				
+			}
+			
+			if (!is_null($fieldList = $fieldCatalog->firstChild('ObjectList'))) {
+				
+				if (!is_null($tableOccurrence = $this->namedObjects['DTTableOccurrence'][$tableId])) {
 					
-					$tableOccurrenceId = $tableOccurrenceRef->id();
-					
-					if (!is_null($tableOccurrence = $this->namedObjects['DTTableOccurrence'][$tableOccurrenceId])) {
+					if (!is_null($tableRef = $tableOccurrence->firstChild('BaseTableReference'))) {
 						
-						if (!is_null($tableRef = $tableOccurrence->firstChild('BaseTableReference'))) {
-							
-							$tableName = $tableRef->name();
-							$tableId = $tableRef->id();
-							$tableCount++;
-									
-							// Generate directory path for this table
-							$tableDirectory = $this->pathForResource('Tables/'.filterFileName($tableName).'/Fields/');
-							
-							checkDirectory($tableDirectory);
-							
-							foreach ($fieldList->childNodes as $field) {
+						$tableName = $tableRef->name();
+						$tableId = $tableRef->id();
+						$tableCount++;
 								
-								if ($field->nodeName == 'Field') {
-									
-									$fieldCount++;
-									
-									$fieldFilePath = $tableDirectory.filterFileName($field->name()).'.txt';
-									file_put_contents($fieldFilePath, $field->xml());
-									
-								}
-							}			
+						// Generate directory path for this table
+						$tableDirectory = $this->pathForResource('Tables/'.filterFileName($tableName).'/Fields/');
+						
+						checkDirectory($tableDirectory);
+						
+						foreach ($fieldList->childNodes as $field) {
+							
+							if ($field->nodeName == 'Field') {
+								
+								$fieldCount++;
+								
+								$fieldFilePath = $tableDirectory.filterFileName($field->name()).'.txt';
+								file_put_contents($fieldFilePath, $field->xml());
+								
+							}
+						}			
 
-						}
-												
 					}
-					
+											
 				}
 				
-			} 
+			}	
 			
 		}
 	
