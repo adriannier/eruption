@@ -8,11 +8,17 @@ class FMXMLProcessor {
 	
 	public $destinationDirectory;
 	
+	public $createSubdirectories;
+	public $keepDirectory;
+	
 	public $template;
 
 	private $xml;
-
-	function __construct($filePath = false, $destinationDirectory = false ) {
+	
+	function __construct($filePath = false, $destinationDirectory = false, $createSubdirectories = true, $keepDirectory = false) {
+		
+		$this->createSubdirectories = $createSubdirectories;
+		$this->keepDirectory = $keepDirectory;
 		
 		if ($filePath !== false) {
 			$this->setSourceFile($filePath);
@@ -21,6 +27,10 @@ class FMXMLProcessor {
 		if ($destinationDirectory !== false) {
 			$this->setDestinationDirectory($destinationDirectory);
 		}
+		
+		
+		
+		
 		
 	}
 	
@@ -61,10 +71,14 @@ class FMXMLProcessor {
 			$folderPath .= DIRECTORY_SEPARATOR;
 		}
 		
-		$folderPath .= 'Eruption'.DIRECTORY_SEPARATOR;
+		if ($this->createSubdirectories) {
+			
+			$folderPath .= 'Eruption'.DIRECTORY_SEPARATOR;
 		
-		if ($this->sourceType == 'SnippetSourceType') {
-			$folderPath .= 'Clipboard'.DIRECTORY_SEPARATOR;
+			if ($this->sourceType == 'SnippetSourceType') {
+				$folderPath .= 'Clipboard'.DIRECTORY_SEPARATOR;
+			}
+			
 		}
 		
 		$this->destinationDirectory = $folderPath;
@@ -73,12 +87,16 @@ class FMXMLProcessor {
 	
 	function initializeDestinationDirectory() {
 		
-		if (is_dir($this->destinationDirectory)) {
-			rmdirRecursive($this->destinationDirectory);
+		if ($this->keepDirectory === false) {
+			if (is_dir($this->destinationDirectory)) {
+				rmdirRecursive($this->destinationDirectory);
+			}
 		}
 		
-		mkdir($this->destinationDirectory, 0777, true);
-		
+		if (!is_dir($this->destinationDirectory)) {
+			mkdir($this->destinationDirectory, 0777, true);
+		}
+	
 		if (!is_dir($this->destinationDirectory)) {
 			doLog('Could not create destination directory at: '.$this->destinationDirectory);	
 			exit(1);

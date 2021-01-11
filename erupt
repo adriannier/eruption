@@ -3,6 +3,26 @@
 
 include(__DIR__.DIRECTORY_SEPARATOR.'functions'.DIRECTORY_SEPARATOR.'load.php');
 
+// Gather options
+
+if (in_array('--no-subdirectories', $argv)) {
+	$createSubDirectories = false;
+} else {
+	$createSubDirectories = true;
+}
+
+if (in_array('--create-directory', $argv)) {
+	$createDirectory = true;
+} else {
+	$createDirectory = false;
+}
+
+if (in_array('--keep-directory', $argv)) {
+	$keepDirectory = true;
+} else {
+	$keepDirectory = false;
+}
+
 // Check parameters
 if (!isset($argv[1])) {
 	
@@ -22,12 +42,20 @@ if (!isset($argv[2])) {
 	   
 } else if (!is_dir(dirname($argv[2]))) {
 	
-	doLog('Parent directory '.dirname($argv[2]).' not found'."\n");
-	exit();	 
+	if ($createDirectory) {
+		if (!mkdir($argv[2], 0755, true)) {
+			doLog('Could not create directory '.$argv[2]."\n");
+			exit();
+		}
+	} else {
+		doLog('Parent directory '.dirname($argv[2]).' not found'."\n");
+		exit();	 
+	}
+	
 }
-
+		
 // Process file
-$processor = new FMXMLProcessor($argv[1], $argv[2]);
+$processor = new FMXMLProcessor($argv[1], $argv[2], $createSubDirectories, $keepDirectory);
 $processor->process();
 
 exit();
